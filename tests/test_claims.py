@@ -76,7 +76,7 @@ def test_claim_leverage_point(grid):
 
 
 def test_claim_leverage_ranks_stop_moving(grid):
-    """README: der Anteil der Rangtests ändert sich ab k ≈ 3 kaum noch."""
+    """README: der Anteil der Rangtests ändert sich ab k ≈ 3 kaum noch (Raster, n = 10 bis 300)."""
     for n in C.LEVER_NS:
         shares = [ev.find(grid["lever"], n=n, k=k)["share_s"] for k in (3, 4, 5, 6, 8, 10, 15)]
         assert max(shares) - min(shares) < 0.005, n

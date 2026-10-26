@@ -209,7 +209,7 @@ if grid is not None:
     sel_k = st.selectbox("k für das Verdikt", list(C.LEVER_KS), index=C.LEVER_KS.index(5), key="lev_k_sel")
     kind, text = ev.verdict_lever(lever_rows, sel_n, sel_k)
     getattr(st, kind)(text)
-    st.caption("Ein Punkt kann bei Rängen nur begrenzt ziehen: ab etwa k = 4 ändert sich der Anteil der Rangtests nicht mehr.")
+    st.caption("Ein Punkt kann bei Rängen nur begrenzt ziehen: ab etwa k = 3 ändert sich der Anteil der Rangtests kaum noch.")
 
 st.markdown("---")
 
@@ -226,14 +226,14 @@ if grid is not None:
     sfam = st.selectbox("Verteilung für das Verdikt", list(C.SIZE_FAMILIES), format_func=C.ALL_FAMILIES.get, index=2, key="size_family")
     kind, text = ev.verdict_size(ev.find(grid["size"], family=sfam, n=sn))
     getattr(st, kind)(text)
-    st.caption("Die Rangtests sind nicht exakt 5 %: bei t(3) liegen sie bei 6 bis 8 %. Ränge ändern die Verteilung der Statistik, weil die Streuung nicht mehr in die Gewichte eingeht.")
+    st.caption("Die Rangtests sind nicht exakt 5 %: bei t(3) liegen sie bei 7 bis 9 %. Ränge dämpfen den Einfluss der Spitzenwochen stark; eine Herleitung der Restabweichung steht in dieser Demo nicht.")
 
 st.markdown("---")
 
 # --- E5 Gleichstände -----------------------------------------------------------------------------------------------------------------------
 
 st.subheader("🔬 Experiment 5: Gleichstände und grobe Skalen")
-st.caption("Eine Skala mit k Stufen aus bivariater Normalverteilung (ρ = 0,6, n = 500). Stetig wären τ = 0,410, ρ_S = 0,582 und r = 0,600.")
+st.caption("Eine Skala mit k gleich besetzten Stufen aus bivariater Normalverteilung (ρ = 0,6, n = 500). Stetig wären τ = 0,410, ρ_S = 0,582 und r = 0,600.")
 if grid is not None:
     tie_rows = sorted(grid["ties"], key=lambda r: r["levels"])
     st.plotly_chart(build_ties(tie_rows), width="stretch", key="ties_chart")
@@ -283,7 +283,7 @@ st.markdown(
 |---|---|---|
 | **Monotonie:** Ränge kennen nur die Reihenfolge | eine Parabel oder ein Kreis hat ρ_S ≈ 0 trotz Abhängigkeit; Spearman ist dort blind | nichtlineare Abhängigkeit (nächstes Stück) |
 | **Ränge helfen immer** | bei einer schwach gekrümmten Kurve mit Rauschen liegt ρ_S unter Pearson (Experiment 2, c = 0,5) | – |
-| **Rangtests sind exakt** | die Näherungen (t, Normal) sind bei kleinem n und Gleichständen ungenau; bei gemeinsamer Streuung liegen sie bei 6 bis 8 % (Experiment 4) | exakte und Permutationstests |
+| **Rangtests sind exakt** | die Näherungen (t, Normal) sind bei kleinem n und Gleichständen ungenau; bei gemeinsamer Streuung (t(3), kontaminiert) liegen sie bei 6 bis 9 % (Experiment 4) | exakte und Permutationstests |
 | **Eine Variante genügt** | bei groben Skalen unterscheiden sich τ-a, τ-b und γ um mehr als die Hälfte (Experiment 5) | Skala und Variante vorher festlegen |
 | **Die Umrechnung gilt überall** | 2 sin(πρ_S/6) ist nur bei Normalkopula richtig, sin(πτ/2) bei elliptischen Verteilungen (Experiment 1) | Kopula-Stück (Randabhängigkeit) |
 | **Ränge sehen alles Wichtige** | Ränge schneiden die Ränder ab: zwei Datensätze mit gleichen Rängen sind für Spearman gleich, auch wenn die Extreme verschieden sind | Randabhängigkeit (Kopula) |
